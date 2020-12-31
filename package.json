@@ -21,7 +21,10 @@
     "start": "node src/index.js",
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/polyfill --require @babel/register 'src/**/**test.js' --exit",
     "dev": "nodemon --exec babel-node src/index.js",
+
     "coverage": "npm test",
+   
+
     "lint": "eslint .",
     "lintfix": "eslint . --fix"
   },
