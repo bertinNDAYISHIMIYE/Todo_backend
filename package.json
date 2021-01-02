@@ -21,10 +21,8 @@
     "start": "node src/index.js",
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/polyfill --require @babel/register 'src/**/**test.js' --exit",
     "dev": "nodemon --exec babel-node src/index.js",
-
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-   
-
+    "migrate": "sequelize db:migrate",
     "lint": "eslint .",
     "lintfix": "eslint . --fix"
   },
@@ -46,6 +44,9 @@
     "eslint-plugin-import": "^2.22.1",
     "express": "^4.17.1",
     "path": "^0.12.7",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.5",
     "sinon": "^9.2.2",
     "swagger-jsdoc": "^6.0.0",
     "swagger-ui-express": "^4.1.6"
