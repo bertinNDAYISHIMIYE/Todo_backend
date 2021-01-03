@@ -34,5 +34,14 @@ const mockData = {
     email: 'test@gmail.com',
     password: 'test123',
   },
+  validDuty: {
+    content: 'lets test this duty',
+    complete: 'false',
+  },
+  invalidDuty: {
+    name: '',
+    content: '',
+    dutyid: '',
+  },
 };
 export default mockData;

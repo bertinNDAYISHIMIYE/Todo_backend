@@ -2,10 +2,9 @@
 const {
   Model,
 } = require('sequelize');
-const todos = require('./todos');
 
 module.exports = (sequelize, DataTypes) => {
-  class users extends Model {
+  class Todos extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,19 +12,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // users.hasMany(models.todos, {
+      // Todos.belongsTo(models.user, {
       //   foreignKey: 'todoId',
-      //   as: 'todo',
+      //   onDelete: 'CASCADE',
       // });
     }
   }
-  users.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
+  Todos.init({
+    content: DataTypes.STRING,
+    complete: DataTypes.BOOLEAN,
   }, {
     sequelize,
-    modelName: 'users',
+    modelName: 'Todos',
   });
-  return users;
+  return Todos;
 };
