@@ -4,7 +4,7 @@ const {
 } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Todos extends Model {
+  class todos extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -12,18 +12,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // Todos.belongsTo(models.user, {
-      //   foreignKey: 'todoId',
-      //   onDelete: 'CASCADE',
-      // });
+      todos.belongsTo(models.users, {
+        foreignKey: 'todoId',
+        onDelete: 'CASCADE',
+      });
     }
   }
-  Todos.init({
+  todos.init({
     content: DataTypes.STRING,
     complete: DataTypes.BOOLEAN,
   }, {
     sequelize,
-    modelName: 'Todos',
+    modelName: 'todos',
   });
-  return Todos;
+  return todos;
 };
