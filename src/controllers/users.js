@@ -49,7 +49,19 @@ export class usercontrollers {
 
       res.status(200).json({ status: 200, message: `user ${user.name} is logged in with below token`, token });
     } catch (error) {
-      console.log('><><><><><><><><><><><><>', error);
+      return res.status(500).json({
+        status: 500,
+        message: 'server error',
+      });
+    }
+  };
+
+  static logout = async (req, res) => {
+    try {
+      return res.status(200).json({
+        message: 'User logout successfully',
+      });
+    } catch (error) {
       return res.status(500).json({
         status: 500,
         message: 'server error',

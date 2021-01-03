@@ -9,7 +9,7 @@ export class verifyToken {
     const token = req.header('Authorization');
     if (!token) return Response.error(res, 401, 'Access denied. no token provided ');
     try {
-      const decode = jwt.verify(token, process.env.JWT_KEY);
+      const decode = jwt.verify(token, process.env.JWTKEY);
       req.user = decode;
       return next();
     } catch (error) {
