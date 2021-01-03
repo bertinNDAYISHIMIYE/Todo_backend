@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/extensions */
 import express from 'express';
+import { verifyToken } from '../middleware/auth.js';
 import { usercontrollers } from '../controllers/users.js';
 import { usersValidation } from '../middleware/validators/usersValidation.js';
 
@@ -39,5 +41,37 @@ const router = express.Router();
  *             description: The email is already in use by another account.
  * */
 router.post('/signup', usersValidation.usersvalidation, usercontrollers.createAccount);
+/**
+ * @swagger
+ * /api/users/login:
+ *   post:
+ *     tags:
+ *       - Users
+ *     name: login
+ *     summary: login a user
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         schema:
+ *             type: object
+ *             properties:
+ *                email:
+ *                 type: string
+ *                password:
+ *                 type: string
+ *         required:
+ *                -email
+ *                -password
+ *     responses:
+ *       201:
+ *             description: user created successfully.
+ *       400:
+ *             description: Bad request.
+ *       409:
+ *             description: The email is already in use by another account.
+ * */
 
+router.post('/login', usersValidation.usersvalidation, usercontrollers.login);
 export default router;
