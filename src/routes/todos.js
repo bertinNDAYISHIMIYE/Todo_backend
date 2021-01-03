@@ -37,4 +37,28 @@ const router = express.Router();
  *             description: Error creating Duty
  * */
 router.post('/add', todoValidation.todovalidation, verifyToken.checkUser, todocontrollers.createDuty);
+/**
+ * @swagger
+ * /api/todos:
+ *   get:
+ *     tags:
+ *       - Tasks
+ *     summary: get all user's todos
+ *     content:
+ *       - application/json
+ *     parameters:
+ *       - name: Athorization
+ *         in: header
+ *         required: true
+ *     responses:
+ *       200:
+ *             description: User task successfully retrieved.
+ *       400:
+ *             description: Bad request.
+ *       401:
+ *             description: unauthorized
+ *       500:
+ *             description: server error
+ * */
+router.get('/', verifyToken.checkUser, todocontrollers.getAllTasks);
 export default router;

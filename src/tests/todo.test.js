@@ -45,4 +45,36 @@ describe('test duty endpoints', () => {
     response.should.have.status(400);
     response.body.should.be.a('object');
   });
+  it('It should not display tasks to not loggedin user', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/users/login')
+      .send(mockData.invalidLogin);
+    res.should.have.status(400);
+    res.body.should.be.a('object');
+
+    const response = await chai.request(app)
+      .get('/api/todos/');
+    response.should.have.status(401);
+    response.body.should.be.a('object');
+  });
+  it('It should display user todos', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/users/login')
+      .send(mockData.validLogin);
+    res.should.have.status(200);
+    res.body.should.be.a('object');
+    res.body.should.have.property('status');
+    res.body.should.have.property('message');
+    res.body.should.have.property('token');
+
+    const response = await chai.request(app)
+      .get('/api/todos')
+      .set('authorization', token);
+    response.should.have.status(200);
+    response.body.should.be.a('object');
+    response.body.should.have.property('msg');
+    response.body.should.have.property('data');
+  });
 });
