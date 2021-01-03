@@ -25,16 +25,12 @@ describe('Test user registration', () => {
       .post('/api/users/signup').send(mockData.invalidPassword);
     res.should.have.status(400);
     res.body.should.be.a('object');
-    // res.body.should.have.property('status');
-    // res.body.should.have.property('message');
   });
   it('It should not create user when email is invalid', async () => {
     const res = await chai.request(app)
       .post('/api/users/signup').send(mockData.invalidEmail);
     res.should.have.status(400);
     res.body.should.be.a('object');
-    // res.body.should.have.property('status');
-    // res.body.should.have.property('message');
   });
   it('should register user', async () => {
     const res = await chai
