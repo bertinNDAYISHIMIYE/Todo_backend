@@ -1,11 +1,15 @@
 /* eslint-disable import/extensions */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import jwt from 'jsonwebtoken';
 import app from '../index.js';
 import mockData from './mocks/testData.js';
 
 import { users } from '../models';
 
+const token = jwt.sign(mockData.validLogin, process.env.JWTKEY, {
+  expiresIn: '1d',
+});
 chai.should();
 chai.use(chaiHttp);
 
@@ -68,5 +72,13 @@ describe('Test user registration', () => {
       .post('/api/users/login').send(mockData.invalidEmail);
     res.should.have.status(400);
     res.body.should.be.a('object');
+  });
+  it('should log a user out', async () => {
+    const response = await chai.request(app)
+      .get('/api/users/logout')
+      .set('authorization', token);
+    response.should.have.status(200);
+    response.body.should.be.a('object');
+    response.body.should.have.property('message');
   });
 });

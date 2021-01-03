@@ -10,14 +10,14 @@ const mockData = {
     password: 'test123',
   },
   validLogin: {
-    name: 'shizzy',
-    email: 'shizzy@gmail.com',
-    password: 'shizzy',
+    name: 'berrry',
+    email: 'berrry@gmail.com',
+    password: 'berrry',
   },
   incorrectPasswordLogin: {
-    name: 'shizzy',
-    email: 'shizzy@gmail.com',
-    password: 'shizziii',
+    name: 'berrry',
+    email: 'berrry@gmail.com',
+    password: 'berrryyy',
   },
   invalidPassword: {
     name: 'test123',

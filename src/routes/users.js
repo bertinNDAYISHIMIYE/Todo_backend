@@ -74,4 +74,33 @@ router.post('/signup', usersValidation.usersvalidation, usercontrollers.createAc
  * */
 
 router.post('/login', usersValidation.usersvalidation, usercontrollers.login);
+/**
+ * @swagger
+ * /api/users/logout:
+ *   get:
+ *     tags:
+ *       - Users
+ *     name: logout
+ *     summary: logout a user
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         required: true
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *             description: user logged out successfully.
+ *       400:
+ *             description: Bad request.
+ *       500:
+ *             description: can't log user out.
+ * */
+
+router.get('/logout', verifyToken.checkUser, usercontrollers.logout);
 export default router;
