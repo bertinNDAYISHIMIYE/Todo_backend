@@ -2,10 +2,12 @@
 import { Router } from 'express';
 import swaggerUI from 'swagger-ui-express';
 import swaggerDocs from '../swagger.js';
+import users from './users.js';
 
 const router = Router();
 
 router.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+router.use('/api/users', users);
 
 router.get('/', (req, res) => {
   res.status(200).json({

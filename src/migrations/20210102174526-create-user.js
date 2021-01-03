@@ -16,11 +16,11 @@ export async function up(queryInterface, Sequelize) {
     password: {
       type: Sequelize.STRING,
     },
-    createdAt: {
+    createdat: {
       allowNull: false,
       type: Sequelize.DATE,
     },
-    updatedAt: {
+    updatedat: {
       allowNull: false,
       type: Sequelize.DATE,
     },
