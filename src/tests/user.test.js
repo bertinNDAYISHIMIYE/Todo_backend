@@ -45,4 +45,28 @@ describe('Test user registration', () => {
       where: { email: mockData.signUpValid.email },
     });
   });
+
+  it('should log a user in', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/users/login')
+      .send(mockData.validLogin);
+    res.should.have.status(200);
+    res.body.should.be.a('object');
+    res.body.should.have.property('status');
+    res.body.should.have.property('message');
+    res.body.should.have.property('token');
+  });
+  it('It should not log user in when password is below 6 or null', async () => {
+    const res = await chai.request(app)
+      .post('/api/users/login').send(mockData.invalidPassword);
+    res.should.have.status(400);
+    res.body.should.be.a('object');
+  });
+  it('It should not log user in when email is invalid', async () => {
+    const res = await chai.request(app)
+      .post('/api/users/login').send(mockData.invalidEmail);
+    res.should.have.status(400);
+    res.body.should.be.a('object');
+  });
 });

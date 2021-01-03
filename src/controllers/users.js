@@ -1,8 +1,10 @@
+/* eslint-disable consistent-return */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/extensions */
-
+import jwt from 'jsonwebtoken';
 import { hashPassword } from '../helper/hash.js';
 import { users } from '../models';
+import JWTKEY from '../config/env.js';
 
 export class usercontrollers {
   static createAccount = async (req, res) => {
@@ -17,7 +19,6 @@ export class usercontrollers {
           email: req.body.email,
           password: newPassword,
         });
-        console.log('>><><><>><><><><><><><><>><><<><><><>', user);
         res.status(201).json({
           status: 201,
           message: 'user created',
@@ -32,5 +33,27 @@ export class usercontrollers {
         },
       );
     }
-  }
+  };
+
+  static login = async (req, res) => {
+    try {
+      const user = { email: req.body.email, password: req.body.password };
+      const token = jwt.sign({
+
+        email: req.body.email,
+        userId: user.id,
+
+      },
+      JWTKEY,
+      { expiresIn: '1hr' });
+
+      res.status(200).json({ status: 200, message: `user ${user.name} is logged in with below token`, token });
+    } catch (error) {
+      console.log('><><><><><><><><><><><><>', error);
+      return res.status(500).json({
+        status: 500,
+        message: 'server error',
+      });
+    }
+  };
 }

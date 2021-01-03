@@ -1,5 +1,4 @@
 {
-  
   "name": "todoapp",
   "version": "1.0.0",
   "description": "",
@@ -49,6 +48,7 @@
     "eslint-plugin-import": "^2.22.1",
     "express": "^4.17.1",
     "joi": "^17.3.0",
+    "jsonwebtoken": "^8.5.1",
     "path": "^0.12.7",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
