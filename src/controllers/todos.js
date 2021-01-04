@@ -21,7 +21,7 @@ static createDuty = async (req, res) => {
       data: todo,
     });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ status: 500, message: 'server error' });
   }
 }
 
@@ -41,7 +41,6 @@ static getAllTasks = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       status: 500,
-      error,
       message: 'server error',
     });
   }
@@ -62,6 +61,34 @@ static getAllTasks = async (req, res) => {
        todos.update(req.body, { fields: Object.keys(req.body), where: { id } });
        res.status(201).json({
          status: '201', message: ` updated task by ${email}`, body,
+       });
+     }
+   } catch (error) {
+     res.status(500).json({ status: 500, message: 'server error' });
+   }
+ }
+
+ static markcompleted = async (req, res) => {
+   try {
+     const token = req.header('Authorization');
+     const { email } = jwt.verify(token, process.env.JWTKEY);
+     const user = await users.findOne({ where: { email } });
+     const { body } = req;
+     const todoId = user.id;
+     const { id } = req.params;
+     const task = await todos.findOne({ where: { id, todoId } });
+     if (task < 1) {
+       (res.status(404).json({ status: 404, message: 'task not found' }));
+     }
+     const comp = task.complete;
+     if (comp !== true) {
+       todos.update(req.body, { fields: Object.keys(req.body), where: { id } });
+       res.status(201).json({
+         status: '201', message: ` updated task by ${email}`, body,
+       });
+     } else {
+       res.status(400).json({
+         status: '400', message: 'task already marked done',
        });
      }
    } catch (error) {

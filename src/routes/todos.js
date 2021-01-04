@@ -7,7 +7,7 @@ import { todocontrollers } from '../controllers/todos.js';
 const router = express.Router();
 /**
  * @swagger
- * /api/todos/add:
+ * /api/todos/:
  *   post:
  *     tags:
  *       - Tasks
@@ -36,7 +36,7 @@ const router = express.Router();
  *       500:
  *             description: Error creating Duty
  * */
-router.post('/add', todoValidation.todovalidation, verifyToken.checkUser, todocontrollers.createDuty);
+router.post('/', todoValidation.todovalidation, verifyToken.checkUser, todocontrollers.createDuty);
 /**
  * @swagger
  * /api/todos:
@@ -97,4 +97,37 @@ router.get('/', verifyToken.checkUser, todocontrollers.getAllTasks);
  * */
 
 router.patch('/:id', verifyToken.checkUser, todocontrollers.updateTodo);
+/**
+ * @swagger
+ * /api/todos/complete/{id}:
+ *   patch:
+ *     tags:
+ *       - Tasks
+ *     summary: change completed to true
+ *     content:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         required: true
+  *       - name: id
+ *         in: path
+ *         required: true
+ *       - name: body
+ *         in: body
+ *         schema:
+ *             properties:
+ *                complete:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *             description: User Duty successfully updated.
+ *       400:
+ *             description: Bad request.
+ *       401:
+ *             description: unauthorized
+ *       500:
+ *             description: Error updating Duty
+ * */
+router.patch('/complete/:id', verifyToken.checkUser, todocontrollers.markcompleted);
 export default router;

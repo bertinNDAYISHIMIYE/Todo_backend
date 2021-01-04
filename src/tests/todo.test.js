@@ -31,7 +31,7 @@ describe('test todos', () => {
     res.body.should.have.property('token');
 
     const response = await chai.request(app)
-      .post('/api/todos/add').set('authorization', `Bearer ${res.body.token}`).send(mockData.invalidDuty);
+      .post('/api/todos/').set('authorization', `Bearer ${res.body.token}`).send(mockData.invalidDuty);
     response.should.have.status(400);
     response.body.should.be.a('object');
   });
@@ -74,6 +74,19 @@ describe('test todos', () => {
       .patch(`/api/todos/${id}`)
       .set('authorization', token)
       .send(mockData.validUpdate);
+    response.should.have.status(500);
+    response.body.should.be.a('object');
+    response.body.should.have.property('status');
+    response.body.should.have.property('message');
+  });
+
+  it('It should mark true to completed task', async () => {
+    const id = '8';
+
+    const response = await chai.request(app)
+      .patch(`/api/todos/complete/${id}`)
+      .set('authorization', token)
+      .send({ complete: true });
     response.should.have.status(500);
     response.body.should.be.a('object');
     response.body.should.have.property('status');
