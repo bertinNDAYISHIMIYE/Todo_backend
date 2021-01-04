@@ -45,7 +45,7 @@ export class usercontrollers {
 
       },
       JWTKEY,
-      { expiresIn: '1hr' });
+      { expiresIn: '24hr' });
 
       res.status(200).json({ status: 200, message: `user ${user.name} is logged in with below token`, token });
     } catch (error) {
