@@ -73,7 +73,7 @@ router.post('/signup', usersValidation.usersvalidation, usercontrollers.createAc
  *             description: The email is already in use by another account.
  * */
 
-router.post('/login', usersValidation.usersvalidation, usercontrollers.login);
+router.post('/login', usersValidation.usersvalidationlogin, usercontrollers.login);
 /**
  * @swagger
  * /api/users/logout:

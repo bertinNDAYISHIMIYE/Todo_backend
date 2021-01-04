@@ -41,7 +41,7 @@ describe('Test user registration', () => {
     res.body.should.be.a('object');
     res.body.should.have.property('status');
     res.body.should.have.property('message');
-    users.destroy({
+    await users.destroy({
       where: { email: mockData.signUpValid.email },
     });
   });
@@ -49,13 +49,24 @@ describe('Test user registration', () => {
   it('should log a user in', async () => {
     const res = await chai
       .request(app)
-      .post('/api/users/login')
-      .send(mockData.validLogin);
-    res.should.have.status(200);
+      .post('/api/users/signup')
+      .send(mockData.signUpValid);
+    res.should.have.status(201);
     res.body.should.be.a('object');
     res.body.should.have.property('status');
     res.body.should.have.property('message');
-    res.body.should.have.property('token');
+    const res1 = await chai
+      .request(app)
+      .post('/api/users/login')
+      .send(mockData.validLogin);
+    res1.should.have.status(200);
+    res1.body.should.be.a('object');
+    res1.body.should.have.property('status');
+    res1.body.should.have.property('message');
+    res1.body.should.have.property('token');
+    await users.destroy({
+      where: { email: mockData.signUpValid.email },
+    });
   });
   it('It should not log user in when password is below 6 or null', async () => {
     const res = await chai.request(app)
