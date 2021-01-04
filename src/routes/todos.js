@@ -34,7 +34,7 @@ const router = express.Router();
  *       401:
  *             description: unauthorized
  *       500:
- *             description: Error creating Duty
+ *             description: server error
  * */
 router.post('/', todoValidation.todovalidation, verifyToken.checkUser, todocontrollers.createDuty);
 /**
@@ -93,7 +93,7 @@ router.get('/', verifyToken.checkUser, todocontrollers.getAllTasks);
  *       401:
  *             description: unauthorized
  *       500:
- *             description: Error updating Duty
+ *             description: server error
  * */
 
 router.patch('/:id', verifyToken.checkUser, todocontrollers.updateTodo);
@@ -127,7 +127,34 @@ router.patch('/:id', verifyToken.checkUser, todocontrollers.updateTodo);
  *       401:
  *             description: unauthorized
  *       500:
- *             description: Error updating Duty
+ *             description: server error
  * */
 router.patch('/complete/:id', verifyToken.checkUser, todocontrollers.markcompleted);
+/**
+ * @swagger
+ * /api/todos/{id}:
+ *   delete:
+ *     tags:
+ *       - Tasks
+ *     summary: delete a todo
+ *     content:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         required: true
+  *       - name: id
+ *         in: path
+ *         required: true
+ *     responses:
+ *       200:
+ *             description: task deleted.
+ *       400:
+ *             description: Bad request.
+ *       401:
+ *             description: unauthorized
+ *       500:
+ *             description: server error
+ * */
+router.delete('/:id', todocontrollers.deleteCompleted);
 export default router;
