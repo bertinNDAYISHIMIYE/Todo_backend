@@ -61,4 +61,40 @@ router.post('/add', todoValidation.todovalidation, verifyToken.checkUser, todoco
  *             description: server error
  * */
 router.get('/', verifyToken.checkUser, todocontrollers.getAllTasks);
+/**
+ * @swagger
+ * /api/todos/{id}:
+ *   patch:
+ *     tags:
+ *       - Tasks
+ *     summary: Update a todo
+ *     content:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         required: true
+  *       - name: id
+ *         in: path
+ *         required: true
+ *       - name: body
+ *         in: body
+ *         schema:
+ *             properties:
+ *                content:
+ *                 type: string
+ *                complete:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *             description: User Duty successfully updated.
+ *       400:
+ *             description: Bad request.
+ *       401:
+ *             description: unauthorized
+ *       500:
+ *             description: Error updating Duty
+ * */
+
+router.patch('/:id', verifyToken.checkUser, todocontrollers.updateTodo);
 export default router;

@@ -10,7 +10,6 @@ static createDuty = async (req, res) => {
     const { email } = jwt.verify(token, process.env.JWTKEY);
     const user = await users.findOne({ where: { email } });
     const todo = await todos.create({
-      name: req.body.name,
       content: req.body.content,
       complete: 'false',
       todoId: user.id,
@@ -47,4 +46,26 @@ static getAllTasks = async (req, res) => {
     });
   }
 }
+
+ static updateTodo = async (req, res) => {
+   try {
+     const token = req.header('Authorization');
+     const { email } = jwt.verify(token, process.env.JWTKEY);
+     const user = await users.findOne({ where: { email } });
+     const { body } = req;
+     const todoId = user.id;
+     const { id } = req.params;
+     const task = await todos.findOne({ where: { id, todoId } });
+     if (task < 1) {
+       (res.status(404).json({ status: 404, message: 'task not found' }));
+     } else {
+       todos.update(req.body, { fields: Object.keys(req.body), where: { id } });
+       res.status(201).json({
+         status: '201', message: ` updated task by ${email}`, body,
+       });
+     }
+   } catch (error) {
+     res.status(500).json({ status: 500, message: 'server error' });
+   }
+ }
 }

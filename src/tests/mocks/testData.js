@@ -37,11 +37,14 @@ const mockData = {
   validDuty: {
     content: 'lets test this duty',
     complete: 'false',
+    todoId: 1,
   },
   invalidDuty: {
-    name: '',
     content: '',
-    dutyid: '',
+  },
+  validUpdate: {
+    content: ' update test',
+    complete: 'false',
   },
 };
 export default mockData;
