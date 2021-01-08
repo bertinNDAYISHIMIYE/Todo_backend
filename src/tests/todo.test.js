@@ -11,7 +11,7 @@ import { users } from '../models';
 import mockData from './mocks/testData.js';
 import app from '../index';
 
-const token = jwt.sign(mockData.validLogin, process.env.JWTKEY, {
+const token = jwt.sign(mockData.validLogin, 'secret', {
   expiresIn: '1d',
 });
 
