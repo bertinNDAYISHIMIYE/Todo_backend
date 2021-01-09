@@ -15,10 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:12
+        image: postgres:latest
         env:
-          POSTGRES_USER: andela
-          POSTGRES_DB: todo
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: secret
+          POSTGRES_DB: postgres
         ports:
           - 5432:5432
         options: >-
