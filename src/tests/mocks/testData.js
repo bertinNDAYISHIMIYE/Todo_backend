@@ -1,7 +1,7 @@
 const mockData = {
   signUpValid: {
-    name: 'berrry',
-    email: 'neddybertinn@gmail.com',
+    name: 'test',
+    email: 'neddytest1@gmail.com',
     password: '12345678',
   },
   validData: {
@@ -10,9 +10,8 @@ const mockData = {
     password: 'test123',
   },
   validLogin: {
-    name: 'berrry',
-    email: 'berrry@gmail.com',
-    password: 'berrry',
+    email: 'neddytest1@gmail.com',
+    password: '12345678',
   },
   incorrectPasswordLogin: {
     name: 'berrry',

@@ -20,11 +20,13 @@
   },
   "scripts": {
     "start:dev": "node --require @babel/polyfill build/index.js",
-    "start": "node src/index.js",
+    "start": "node ./build/src/index.js ",
+
+    "build": "babel src/. --out-dir build/src",
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/polyfill --require @babel/register 'src/**/**test.js' --exit",
     "dev": "nodemon --exec babel-node src/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "migrate": "sequelize db:migrate",
+    "migrate": "sequelize db:migrate --env development",
     "lint": "eslint .",
     "lintfix": "eslint . --fix"
   },
@@ -36,14 +38,15 @@
   "license": "ISC",
   "homepage": "",
   "dependencies": {
+    "@babel/cli": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/polyfill": "^7.12.1",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "config": "^3.3.3",
     "cors": "^2.8.5",
-    "coveralls": "^3.1.0",
     "coverage": "^0.4.1",
+    "coveralls": "^3.1.0",
     "dotenv": "^8.2.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",

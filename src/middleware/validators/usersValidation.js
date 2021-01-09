@@ -12,4 +12,12 @@ static usersvalidation = async (req, res, next) => {
   });
   base_response(req, res, schema, next);
 }
+
+static usersvalidationlogin = async (req, res, next) => {
+  const schema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).max(15).required(),
+  });
+  base_response(req, res, schema, next);
+}
 }
